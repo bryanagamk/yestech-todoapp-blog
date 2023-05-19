@@ -8,25 +8,37 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="card-title">
-                                Create Task
+                                Edit Post
                             </div>
-                            <form action="{{ route('task.store') }}" method="POST">
+                            <form action="{{ route('post.update', [$post->id]) }}" method="POST"
+                                enctype="multipart/form-data">
                                 @csrf
                                 <div class="form-group">
-                                    <label for="task_name">Name</label>
-                                    <input type="text" class="form-control" name="task_name" id="task_name">
+                                    <label for="title">Title</label>
+                                    <input type="text" class="form-control" name="title" id="title"
+                                        value="{{ $post->title }}">
                                 </div>
                                 <div class="form-group">
-                                    <label for="assigned_to">Assigned to</label>
-                                    <input type="text" class="form-control" name="assigned_to" id="assigned_to">
+                                    <label for="category">Categories</label>
+                                    <select class="select2-multiple form-control" name="category[]" multiple="multiple"
+                                        id="category">
+                                        @foreach ($categories as $key => $item)
+                                            <option value="{{ $item->id }}" {{ !$item->selected ?: 'selected' }}>{{ $item->name }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                                 <div class="form-group">
-                                    <label for="due_date">Due Date</label>
-                                    <input type="date" class="form-control" name="due_date" id="due_date">
+                                    <label for="banner_image">Banner Image</label>
+                                    <div class="d-flex" style="max-width: 200px">
+                                        <img id="frame" class="img-thumbnail"
+                                            src="{{ asset('uploads/' . $post->banner_image) }}" alt="">
+                                    </div>
+                                    <input type="file" class="form-control" name="banner_image" id="banner_image"
+                                        onchange="loadImg()" value="{{ $post->banner_image }}">
                                 </div>
                                 <div class="form-group">
-                                    <label for="description">Description</label>
-                                    <textarea name="description" class="form-control" id="description" cols="30" rows="10"></textarea>
+                                    <label for="body">Body</label>
+                                    <textarea name="body" class="form-control" id="body" cols="30" rows="10">{{ $post->body }}</textarea>
                                 </div>
                                 <button class="btn btn-primary mr-2">Submit</button>
                             </form>
@@ -51,6 +63,12 @@
 @endsection
 
 @section('content-js')
+    {{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> --}}
+    <script>
+        function loadImg() {
+            $('#frame').attr('src', URL.createObjectURL(event.target.files[0]));
+        }
+    </script>
     <script>
         tinymce.init({
             selector: 'textarea',
@@ -67,6 +85,16 @@
                     title: 'Email'
                 },
             ]
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+            // Select2 Multiple
+            $('.select2-multiple').select2({
+                placeholder: "Select",
+                allowClear: true
+            });
+
         });
     </script>
 @endsection

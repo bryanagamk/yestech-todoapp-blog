@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="{{ asset('vendors/feather/feather.css') }}">
     <link rel="stylesheet" href="{{ asset('vendors/ti-icons/css/themify-icons.css') }}">
     <link rel="stylesheet" href="{{ asset('vendors/css/vendor.bundle.base.css') }}">
+    <link rel="stylesheet" href="{{ asset('vendors/select2/select2.min.css') }}">
     <!-- endinject -->
     <!-- Plugin css for this page -->
     <link rel="stylesheet" href="{{ asset('vendors/datatables.net-bs4/dataTables.bootstrap4.css') }}">
@@ -20,6 +21,11 @@
     <link rel="stylesheet" href="{{ asset('css/vertical-layout-light/style.css') }}">
     <!-- endinject -->
     <link rel="shortcut icon" href="{{ asset('images/favicon.png') }}" />
+
+    <script src="https://cdn.tiny.cloud/1/erq06dotgrcn3zvg88ch2jqyq96mk1wxf1novyvjygzeobi6/tinymce/6/tinymce.min.js"
+        referrerpolicy="origin"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 
 <body>
@@ -444,6 +450,20 @@
                             <span class="menu-title">Tasks</span>
                         </a>
                     </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('category.index') }}">
+                            <i class="icon-paper menu-icon"></i>
+                            <span class="menu-title">Post Category</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('post.index') }}">
+                            <i class="icon-paper menu-icon"></i>
+                            <span class="menu-title">Post</span>
+                        </a>
+                    </li>
                 </ul>
             </nav>
             <!-- partial -->
@@ -461,6 +481,7 @@
     <script src="{{ asset('vendors/chart.js/Chart.min.js') }}"></script>
     <script src="{{ asset('vendors/datatables.net/jquery.dataTables.js') }}"></script>
     <script src="{{ asset('vendors/datatables.net-bs4/dataTables.bootstrap4.js') }}"></script>
+    <script src="{{ asset('vendors/select2/select2.min.js') }}"></script>
     <script src="{{ asset('js/dataTables.select.min.js') }}"></script>
 
     <!-- End plugin js for this page -->
@@ -473,8 +494,10 @@
     <!-- endinject -->
     <!-- Custom js for this page-->
     <script src="{{ asset('js/dashboard.js') }}"></script>
+    <script src="{{ asset('js/select2.js') }}"></script>
     <script src="{{ asset('js/Chart.roundedBarCharts.js') }}"></script>
     <!-- End custom js for this page-->
+    @yield('content-js')
 </body>
 
 </html>
